@@ -30,7 +30,7 @@ For help getting started with Flutter, view our online [documentation](https://f
 flutter pub get
 ```
 
-**For Run useing command line plese run this :**
+**For Run using command line plese run this :**
 
 ```BASH
 flutter run
