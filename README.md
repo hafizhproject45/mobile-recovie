@@ -4,7 +4,7 @@
 
 # Recovie App
 
-Recovie adalah aplikasi yang diperuntukan bagi anak muda yang ingin melihat .
+Recovie adalah aplikasi yang diperuntukan bagi anak muda yang ingin melihat rekomendasi film manca negara atau yang berada dalam negara.
 
 ## Documentation
 
