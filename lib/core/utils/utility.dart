@@ -68,10 +68,10 @@ class Utility {
     return '${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}';
   }
 
-  /// Format int to `4 days ago`
   static String timeAgoFormat(String rawDate) {
     DateTime date = DateTime.parse(rawDate);
     Duration difference = DateTime.now().difference(date);
+
     if (difference.inSeconds < 5) {
       return "Just now";
     } else if (difference.inMinutes < 1) {
@@ -80,8 +80,14 @@ class Utility {
       return "${difference.inMinutes} minutes ago";
     } else if (difference.inHours < 24) {
       return "${difference.inHours} hours ago";
-    } else {
+    } else if (difference.inDays < 7) {
       return "${difference.inDays} days ago";
+    } else if (difference.inDays < 365) {
+      int weeks = difference.inDays ~/ 7;
+      return "$weeks weeks ago";
+    } else {
+      int years = difference.inDays ~/ 365;
+      return "$years years ago";
     }
   }
 
