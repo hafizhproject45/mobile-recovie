@@ -40,7 +40,7 @@ class _CarouselSectionState extends State<CarouselSection> {
                 ),
                 child: const Center(
                   child: Text(
-                    'Image not found',
+                    'Image not available',
                     style: AppTextStyle.medium,
                   ),
                 ),

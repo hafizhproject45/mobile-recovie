@@ -2,11 +2,16 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
+import 'package:recovie/data/datasources/movies/detail_movie/teaser_datasource.dart';
+import 'package:recovie/domain/repositories/movies/detail_movie/teaser_repository.dart';
+import 'package:recovie/domain/usecases/movies/detail_movie/get_teaser_usecase.dart';
+import 'package:recovie/presentation/cubit/detail_movie/get_teaser/get_teaser_cubit.dart';
 import 'data/datasources/movies/detail_movie/image_poster_datasource.dart';
 import 'data/datasources/movies/movie_list/movie_list_datasource.dart';
 import 'data/datasources/movies/search_movie/search_movie_datasource.dart';
 import 'data/datasources/reviews/reviews_datasource.dart';
 import 'data/repositories/movies/detail_movie/image_poster_repository_impl.dart';
+import 'data/repositories/movies/detail_movie/teaser_repository_impl.dart';
 import 'data/repositories/movies/movie_list/movie_list_repository_impl.dart';
 import 'data/repositories/movies/search_movie/search_movie_repository_impl.dart';
 import 'domain/repositories/movies/detail_movie/image_poster_repository.dart';
@@ -36,7 +41,7 @@ import 'presentation/cubit/movie_list/get_recomendations/get_recomendations_cubi
 import 'presentation/cubit/movie_list/get_trending/get_trending_cubit.dart';
 import 'services/base_api.dart';
 
-var sl = GetIt.instance;
+final sl = GetIt.instance;
 
 Future<void> initLocator() async {
   sl.allowReassignment = true;
@@ -48,7 +53,7 @@ Future<void> initLocator() async {
   sl.registerSingleton(
     Dio(
       BaseOptions(
-        baseUrl: '$BASE_URL/api/',
+        baseUrl: BASE_URL,
       ),
     )
       ..options.headers['Accept'] = 'application/json'
@@ -96,6 +101,11 @@ Future<void> initLocator() async {
     () => GetImagePosterCubit(getImagePosterUseCase: sl()),
   );
 
+  //? Teaser
+  sl.registerFactory(
+    () => GetTeaserCubit(getTeaserUseCase: sl()),
+  );
+
   //? Search Movie
   sl.registerFactory(
     () => SearchMovieCubit(searchMovieUseCase: sl()),
@@ -124,6 +134,9 @@ Future<void> initLocator() async {
   sl.registerLazySingleton(
       () => GetImagePosterUseCase(imagePosterRepository: sl()));
 
+  //? Teaser
+  sl.registerLazySingleton(() => GetTeaserUseCase(teaserRepository: sl()));
+
   //? Search Movie
   sl.registerLazySingleton(
       () => SearchMovieUseCase(searchMovieRepository: sl()));
@@ -140,9 +153,14 @@ Future<void> initLocator() async {
     () => MovieListReposisoryImpl(movieListDataSource: sl()),
   );
 
-  //? Movie List
+  //? Image Poster
   sl.registerLazySingleton<ImagePosterRepository>(
     () => ImagePosterRepositoryImpl(imagePosterDataSource: sl()),
+  );
+
+  //? Teaser
+  sl.registerLazySingleton<TeaserRepository>(
+    () => TeaserRepositoryImpl(teaserDataSource: sl()),
   );
 
   //? Search List
@@ -164,9 +182,14 @@ Future<void> initLocator() async {
     () => MovieListDataSourceImpl(baseApi: sl()),
   );
 
-  //? Movie List
+  //? Image Poster
   sl.registerLazySingleton<ImagePosterDataSource>(
     () => ImagePosterDataSourceImpl(baseApi: sl()),
+  );
+
+  //? Teaser
+  sl.registerLazySingleton<TeaserDataSource>(
+    () => TeaserDataSourceImpl(baseApi: sl()),
   );
 
   //? Search Movie

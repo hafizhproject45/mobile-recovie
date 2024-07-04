@@ -1,4 +1,5 @@
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../injection_container.dart' as service_locator;
 
@@ -8,6 +9,9 @@ class InitializeApp {
   static Future<void> init() async {
     // Initialize service locator
     await service_locator.initLocator();
+
+    // Initialize Package info
+    await PackageInfo.fromPlatform();
 
     // initialize date formating
     initializeDateFormatting();

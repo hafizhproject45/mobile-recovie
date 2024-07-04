@@ -21,6 +21,18 @@ class RecomendationsSection extends StatelessWidget {
         if (state is GetRecomendationsLoaded) {
           final List<MovieListEntity?> movies = state.data;
 
+          if (movies.isEmpty) {
+            return const Padding(
+              padding: EdgeInsets.only(top: 30, bottom: 30),
+              child: Center(
+                child: Text(
+                  'Recomendations not available',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+            );
+          }
+
           return SizedBox(
             width: double.infinity,
             height: 450,
@@ -106,7 +118,7 @@ class RecomendationsSection extends StatelessWidget {
           );
         } else if (state is GetRecomendationsNotLoaded) {
           return const Center(
-            child: Text("Something Went Wrong!"),
+            child: Text("Something went wrong"),
           );
         } else {
           return Center(

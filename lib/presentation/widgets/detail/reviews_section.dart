@@ -1,20 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../core/utils/colors.dart';
+import '../../../core/utils/constants.dart';
 import '../../../core/utils/text_style.dart';
 import '../../../core/utils/utility.dart';
 
-import '../../../core/utils/constants.dart';
 import '../../../domain/entities/reviews/reviews_entity.dart';
 import '../../cubit/reviews/get_reviews/get_reviews_cubit.dart';
 import '../global/shimmer/my_shimmer_custom.dart';
 
-class ReviewsSection extends StatelessWidget {
+class ReviewsSection extends StatefulWidget {
   final int itemCount;
 
   const ReviewsSection({
     required this.itemCount,
     super.key,
   });
+
+  @override
+  State<ReviewsSection> createState() => _ReviewsSectionState();
+}
+
+class _ReviewsSectionState extends State<ReviewsSection> {
+  final int reviewsLength = 500;
+  final Map<int, bool> _isExpanded = {};
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +38,10 @@ class ReviewsSection extends StatelessWidget {
             return const Padding(
               padding: EdgeInsets.only(top: 30),
               child: Center(
-                child: Text('No reviews available'),
+                child: Text(
+                  'Reviews not available',
+                  style: TextStyle(color: Colors.red),
+                ),
               ),
             );
           }
@@ -38,10 +50,11 @@ class ReviewsSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
-            itemCount: itemCount,
+            itemCount: widget.itemCount,
             itemBuilder: (context, index) {
               final data = reviews[index];
               if (data != null) {
+                final isExpanded = _isExpanded[index] ?? false;
                 return Container(
                   margin: const EdgeInsets.only(top: 20),
                   padding: const EdgeInsets.all(20),
@@ -115,10 +128,49 @@ class ReviewsSection extends StatelessWidget {
                       const SizedBox(height: 20),
                       SizedBox(
                         width: screenWidth * 0.9,
-                        child: Text(
-                          data.content ?? '-',
+                        child: RichText(
                           textAlign: TextAlign.justify,
-                          style: AppTextStyle.bodyThin,
+                          text: TextSpan(
+                            style: AppTextStyle.bodyThin,
+                            children: [
+                              TextSpan(
+                                text: isExpanded
+                                    ? Utility.removeHtmlTags(data.content!)
+                                    : Utility.removeHtmlTags(data.content!
+                                            .substring(
+                                                0,
+                                                data.content!.length >
+                                                        reviewsLength
+                                                    ? reviewsLength
+                                                    : data.content!.length)) +
+                                        (data.content!.length > reviewsLength
+                                            ? '... '
+                                            : ' '),
+                                style: AppTextStyle.bodyThin,
+                              ),
+                              if (data.content!.length > reviewsLength)
+                                WidgetSpan(
+                                  alignment: PlaceholderAlignment.middle,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        _isExpanded[index] = !isExpanded;
+                                      });
+                                    },
+                                    child: Text(
+                                      isExpanded ? ' Show less' : ' Load more',
+                                      style: const TextStyle(
+                                        color: AppColor.primary,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          maxLines: isExpanded ? null : data.content!.length,
+                          overflow: isExpanded
+                              ? TextOverflow.visible
+                              : TextOverflow.ellipsis,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -157,8 +209,17 @@ class ReviewsSection extends StatelessWidget {
             child: Text("Something Went Wrong!"),
           );
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+                child: ShimmerCustomWidget(
+                  width: screenWidth,
+                  height: 300,
+                ),
+              );
+            },
           );
         }
       },

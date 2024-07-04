@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/route_manager.dart';
+import 'package:recovie/presentation/cubit/detail_movie/get_teaser/get_teaser_cubit.dart';
 import '../../../core/utils/colors.dart';
 import '../../widgets/detail/rating_section.dart';
 
@@ -14,7 +15,9 @@ import '../../widgets/detail/carousel_section.dart';
 import '../../widgets/detail/heading_section.dart';
 import '../../widgets/detail/recomendations_section.dart';
 import '../../widgets/detail/reviews_section.dart';
+import '../../widgets/detail/trailer_section.dart';
 import '../../widgets/global/my_appbar.dart';
+import '../../widgets/global/shimmer/my_shimmer_custom.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
@@ -25,122 +28,152 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   bool isShowAll = false;
-
-  final posterCubit = sl<GetImagePosterCubit>();
-  final reviewsCubit = sl<GetReviewsCubit>();
-  final recomendationsCubit = sl<GetRecomendationsCubit>();
+  int reviewsItem = 1;
 
   final MovieListEntity args = Get.arguments;
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => posterCubit..getData(args.id),
+          create: (context) => sl<GetImagePosterCubit>()..getData(args.id),
         ),
         BlocProvider(
-          create: (context) => recomendationsCubit..getData(args.id),
+          create: (context) => sl<GetReviewsCubit>()..getData(args.id),
         ),
         BlocProvider(
-          create: (context) => reviewsCubit..getData(args.id),
+          create: (context) => sl<GetRecomendationsCubit>()..getData(args.id),
+        ),
+        BlocProvider(
+          create: (context) => sl<GetTeaserCubit>()..getData(args.id),
         ),
       ],
-      child: _content(),
-    );
-  }
+      child: OrientationBuilder(
+        builder: (context, orientation) {
+          return Scaffold(
+            appBar: orientation == Orientation.portrait
+                ? MyAppBar(
+                    isMenu: false,
+                  )
+                : null,
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TrailerSection(
+                    title: args.title ?? '',
+                  ),
+                  const SizedBox(height: 20),
+                  // Padding(
+                  //   padding: const EdgeInsets.all(10),
+                  //   child: GestureDetector(
+                  //     onTap: () => Get.toNamed('/more-teaser', arguments: {
+                  //       'id': args.id,
+                  //       'title': args.title,
+                  //     }),
+                  //     child: const Align(
+                  //       alignment: Alignment.centerRight,
+                  //       child: Text(
+                  //         'More teaser',
+                  //         style: TextStyle(color: AppColor.primary),
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
+                  HeadingSection(
+                    args: args,
+                  ),
+                  const SizedBox(height: 30),
+                  const CarouselSection(),
+                  const SizedBox(height: 30),
+                  const Divider(),
+                  const SizedBox(height: 10),
+                  RatingSection(args: args),
+                  const SizedBox(height: 10),
+                  const Divider(),
+                  const SizedBox(height: 20),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      'Reviews',
+                      style: AppTextStyle.subHeadingWhite,
+                    ),
+                  ),
+                  BlocBuilder<GetReviewsCubit, GetReviewsState>(
+                    builder: (context, state) {
+                      if (state is GetReviewsLoaded) {
+                        final reviews = state.data;
 
-  Widget _content() {
-    return Scaffold(
-      appBar: MyAppBar(
-        isMenu: false,
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(vertical: 20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            HeadingSection(
-              args: args,
-            ),
-            const SizedBox(height: 30),
-            const CarouselSection(),
-            const SizedBox(height: 30),
-            const Divider(),
-            const SizedBox(height: 10),
-            RatingSection(args: args),
-            const SizedBox(height: 10),
-            const Divider(),
-            const SizedBox(height: 20),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                'Reviews',
-                style: AppTextStyle.subHeadingWhite,
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            ReviewsSection(
+                              itemCount: isShowAll
+                                  ? reviews.length
+                                  : reviews.length >= reviewsItem
+                                      ? reviewsItem
+                                      : reviews.length,
+                            ),
+                            const SizedBox(height: 20),
+                            reviews.length > reviewsItem
+                                ? GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isShowAll = !isShowAll;
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 10),
+                                      alignment: Alignment.centerRight,
+                                      child: Text(
+                                        isShowAll
+                                            ? 'Show Less'
+                                            : 'Show All (${reviews.length - 1})',
+                                        style: const TextStyle(
+                                            color: AppColor.primary),
+                                      ),
+                                    ),
+                                  )
+                                : const SizedBox.shrink(),
+                          ],
+                        );
+                      } else if (state is GetReviewsNotLoaded) {
+                        return const Center(
+                          child: Text("Something Went Wrong!"),
+                        );
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
+                          child: ShimmerCustomWidget(
+                            width: screenWidth,
+                            height: 300,
+                            radius: BorderRadius.circular(10),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 30),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: Text(
+                      'Recomendations for you',
+                      style: AppTextStyle.subHeadingWhite,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  const RecomendationsSection(),
+                ],
               ),
             ),
-            BlocBuilder<GetReviewsCubit, GetReviewsState>(
-              builder: (context, state) {
-                if (state is GetReviewsLoaded) {
-                  final reviews = state.data;
-
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ReviewsSection(
-                        itemCount: isShowAll
-                            ? reviews.length
-                            : reviews.length >= 3
-                                ? 3
-                                : reviews.length,
-                      ),
-                      const SizedBox(height: 20),
-                      reviews.length > 3
-                          ? GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  isShowAll = !isShowAll;
-                                });
-                              },
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                alignment: Alignment.centerRight,
-                                child: Text(
-                                  isShowAll
-                                      ? 'Show Less (3)'
-                                      : 'Show All (${reviews.length})',
-                                  style:
-                                      const TextStyle(color: AppColor.primary),
-                                ),
-                              ),
-                            )
-                          : const SizedBox.shrink(),
-                    ],
-                  );
-                } else if (state is GetReviewsNotLoaded) {
-                  return const Center(
-                    child: Text("Something Went Wrong!"),
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
-            ),
-            const SizedBox(height: 30),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                'Recomendations for you',
-                style: AppTextStyle.subHeadingWhite,
-              ),
-            ),
-            const SizedBox(height: 10),
-            const RecomendationsSection(),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

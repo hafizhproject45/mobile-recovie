@@ -96,6 +96,14 @@ class Utility {
     return double.parse(formattedString);
   }
 
+  /// Remote Tag HTML
+  static String removeHtmlTags(String htmlText) {
+    // Membuat sebuah regex untuk mencocokkan semua tag HTML
+    final regex = RegExp(r'<[^>]*>');
+    // Mengganti semua kecocokan dengan string kosong
+    return htmlText.replaceAll(regex, '');
+  }
+
   /// Generate random string
   static getRandomString(int length) {
     const charset =

@@ -25,7 +25,6 @@ class HeadingSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
           Text(
             args.title!,
             style: AppTextStyle.headingWhite,
@@ -80,7 +79,7 @@ class HeadingSection extends StatelessWidget {
               SizedBox(
                 width: screenWidth * 0.55,
                 child: Text(
-                  args.overview!,
+                  Utility.removeHtmlTags(args.overview!),
                   style: AppTextStyle.medium,
                   textAlign: TextAlign.justify,
                 ),

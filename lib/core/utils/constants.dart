@@ -9,15 +9,13 @@ const String BASE_DOMAIN = 'api.themoviedb.org';
 
 //! API ENDPOINT
 
-const String MOVIE = '$BASE_URL/movie/';
-const String SEARCH_MOVIE = '$BASE_URL/search/movie';
-const String POPULAR_LIST = '$BASE_URL/movie/popular';
-const String NOW_PLAYING_LIST = '$BASE_URL/movie/now_playing';
-const String TOP_RATED_LIST = '$BASE_URL/movie/top_rated';
-const String UPCOMING_LIST = '$BASE_URL/movie/upcoming';
-const String TRENDING_LIST = '$BASE_URL/trending/movie/week';
-
-const String IMAGE_POSTER = '$BASE_URL/movie/';
+const String MOVIE = '/movie/';
+const String SEARCH_MOVIE = '/search/movie';
+const String POPULAR_LIST = '/movie/popular';
+const String NOW_PLAYING_LIST = '/movie/now_playing';
+const String TOP_RATED_LIST = '/movie/top_rated';
+const String UPCOMING_LIST = '/movie/upcoming';
+const String TRENDING_LIST = '/trending/movie/week';
 
 //! Exception messages
 const String EXCEPTION_CANCEL = 'Permintaan ke server dibatalkan';

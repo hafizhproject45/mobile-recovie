@@ -21,11 +21,14 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
         surfaceTintColor: Colors.transparent,
         backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Image.asset(
-          'assets/images/icon/ic_recovie.png',
-          width: 100,
-          fit: BoxFit.cover,
-          filterQuality: FilterQuality.high,
+        title: GestureDetector(
+          onTap: () => Get.offAllNamed('/navbar'),
+          child: Image.asset(
+            'assets/images/icon/ic_recovie.png',
+            width: 100,
+            fit: BoxFit.cover,
+            filterQuality: FilterQuality.high,
+          ),
         ),
         leading: isMenu
             ? IconButton(

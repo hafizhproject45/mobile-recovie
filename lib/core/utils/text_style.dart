@@ -75,6 +75,11 @@ class AppTextStyle {
     fontWeight: FontWeight.w800, // MEDIUM
     color: Colors.white,
   );
+  static const TextStyle bodySosmed = TextStyle(
+    fontSize: 13,
+    fontWeight: FontWeight.w500, // MEDIUM
+    color: Colors.white,
+  );
   static const TextStyle bodyWhite = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600, // MEDIUM

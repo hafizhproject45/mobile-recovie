@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, deprecated_member_use
 import 'package:dio/dio.dart';
-import '../../../../data/models/movies/detail_movie/image_poster.dart';
+import '../../../models/movies/detail_movie/image_poster_model.dart';
 import '../../../../domain/entities/movies/detail_movie/image_poster_entity.dart';
 import '../../../../services/base_api.dart';
 
@@ -23,7 +23,7 @@ class ImagePosterDataSourceImpl extends ImagePosterDataSource {
   Future<List<ImagePosterEntity>> getImagePoster(int movieId) async {
     try {
       final res = await baseApi.get(
-        '$IMAGE_POSTER$movieId/images',
+        '$MOVIE$movieId/images',
         queryParameters: {
           'api_key': Env.apiKeyAuth,
         },
