@@ -1,21 +1,21 @@
 import 'package:dartz/dartz.dart';
+import '../../../entities/movies/detail_movie/main_detail_entity.dart';
 import '../../../repositories/movies/detail_movie/detail_movie_repository.dart';
 
 import '../../../../core/errors/failures.dart';
 import '../../../../core/usecases/usecase.dart';
-import '../../../entities/movies/detail_movie/teaser_entity.dart';
 
-class GetTeaserUseCase implements UseCase<List<TeaserEntity>, int> {
+class GetMainDetailUseCase implements UseCase<MainDetailEntity, int> {
   final DetailMovieRepository detailMovieRepository;
 
-  GetTeaserUseCase({
+  GetMainDetailUseCase({
     required this.detailMovieRepository,
   });
 
   @override
-  Future<Either<Failure, List<TeaserEntity>>> call(int movieId) async {
-    Either<Failure, List<TeaserEntity>> result =
-        await detailMovieRepository.getTeaser(movieId);
+  Future<Either<Failure, MainDetailEntity>> call(int movieId) async {
+    Either<Failure, MainDetailEntity> result =
+        await detailMovieRepository.getMainDetail(movieId);
 
     return result.fold(
       (failure) => Left(failure),

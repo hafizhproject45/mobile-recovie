@@ -3,12 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
-import '../../../presentation/pages/search/main_search_page.dart';
 
+import '../../../core/utils/colors.dart';
+import '../../../presentation/pages/search/main_search_page.dart';
+import '../../pages/home/main_home_page.dart';
 import '../../pages/nowplaying/main_nowplaying.dart';
 import '../../pages/upcoming/main_upcoming_page.dart';
-import '../../../core/utils/colors.dart';
-import '../../pages/home/main_home_page.dart';
 
 class MyNavigationBar extends StatefulWidget {
   const MyNavigationBar({super.key});

@@ -121,4 +121,8 @@ class Utility {
     });
     return result.join();
   }
+
+  static String imagePlaceHolder(int width, int height) {
+    return 'https://via.placeholder.com/${width}x$height.png?text=No+Image';
+  }
 }

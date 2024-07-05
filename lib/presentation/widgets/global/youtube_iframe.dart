@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:recovie/core/utils/text_style.dart';
+import '../../../core/utils/text_style.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class YoutubeIframe extends StatefulWidget {

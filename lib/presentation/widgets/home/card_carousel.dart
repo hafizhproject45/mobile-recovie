@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import '../../../core/utils/utility.dart';
 
 import '../../../core/utils/constants.dart';
 import '../global/shimmer/my_shimmer_custom.dart';
 
-class CardCarousel extends StatelessWidget {
+class CardImage extends StatelessWidget {
   final String image;
 
-  const CardCarousel({
+  const CardImage({
     required this.image,
     super.key,
   });
@@ -21,9 +22,9 @@ class CardCarousel extends StatelessWidget {
         child: Image.network(
           image.isNotEmpty
               ? '$IMAGE_URL$image'
-              : 'https://via.placeholder.com/150x200.png?text=No+Image',
+              : Utility.imagePlaceHolder(175, 250),
           height: 250,
-          width: 200,
+          width: 175,
           fit: BoxFit.cover,
           filterQuality: FilterQuality.high,
           loadingBuilder: (BuildContext context, Widget child,
@@ -31,7 +32,7 @@ class CardCarousel extends StatelessWidget {
             if (loadingProgress == null) return child;
             return const ShimmerCustomWidget(
               height: 250,
-              width: 200,
+              width: 175,
             );
           },
         ),

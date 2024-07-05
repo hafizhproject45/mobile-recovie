@@ -9,6 +9,8 @@ class AppColor {
 
   //? BACKGROUND COLOR
   static const Color background = Color.fromARGB(255, 28, 27, 31);
+  static const Color darkCard = Color.fromARGB(255, 52, 52, 52);
+
   static const Color textfield = Color(0xffEFEFEF);
   static const Color white = Color(0xffFFFFFF);
 

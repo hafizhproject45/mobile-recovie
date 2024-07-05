@@ -51,7 +51,7 @@ class HeadingSection extends StatelessWidget {
               InstaImageViewer(
                 imageUrl: args.posterPath != '' || args.posterPath!.isNotEmpty
                     ? '$IMAGE_URL${args.posterPath}'
-                    : IMAGE_PLACEHOLDER,
+                    : Utility.imagePlaceHolder(80, 100),
                 backgroundColor: AppColor.background,
                 disableSwipeToDismiss: true,
                 child: ClipRRect(
@@ -59,7 +59,7 @@ class HeadingSection extends StatelessWidget {
                   child: Image.network(
                     args.posterPath != '' || args.posterPath!.isNotEmpty
                         ? '$IMAGE_URL${args.posterPath}'
-                        : IMAGE_PLACEHOLDER,
+                        : Utility.imagePlaceHolder(150, 180),
                     height: 160,
                     width: 120,
                     fit: BoxFit.cover,

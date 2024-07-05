@@ -1,11 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:insta_image_viewer/insta_image_viewer.dart';
+
 import '../../../core/utils/colors.dart';
 import '../../../core/utils/constants.dart';
-import '../global/shimmer/my_shimmer_custom.dart';
-
 import '../../../domain/entities/movies/detail_movie/image_poster_entity.dart';
+import '../global/shimmer/my_shimmer_custom.dart';
 
 class DetailSlider extends StatefulWidget {
   final List<ImagePosterEntity?> movies;

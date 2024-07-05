@@ -81,7 +81,7 @@ class _ReviewsSectionState extends State<ReviewsSection> {
                                   child: Image.network(
                                     data.avatarPath != null
                                         ? '$IMAGE_URL${data.avatarPath}'
-                                        : IMAGE_PLACEHOLDER,
+                                        : Utility.imagePlaceHolder(80, 100),
                                     height: 50,
                                     width: 50,
                                     fit: BoxFit.cover,
@@ -107,7 +107,11 @@ class _ReviewsSectionState extends State<ReviewsSection> {
                               ],
                             ),
                             const SizedBox(height: 10),
-                            const Divider(),
+                            const Divider(
+                              height: 5,
+                              thickness: 0.5,
+                              color: Colors.grey,
+                            ),
                             const SizedBox(height: 10),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -174,7 +178,11 @@ class _ReviewsSectionState extends State<ReviewsSection> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      const Divider(),
+                      const Divider(
+                        height: 5,
+                        thickness: 0.5,
+                        color: Colors.grey,
+                      ),
                       const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

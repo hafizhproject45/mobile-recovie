@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/route_manager.dart';
 
+import '../../../core/utils/colors.dart';
 import '../../../core/utils/text_style.dart';
 import '../../../core/utils/utility.dart';
 import '../../../domain/entities/movies/movie_list/movie_list_entity.dart';
@@ -59,7 +60,7 @@ class RecomendationsSection extends StatelessWidget {
                   ),
                   child: Column(
                     children: [
-                      CardCarousel(
+                      CardImage(
                         image: data?.posterPath ?? '',
                       ),
                       Container(
@@ -73,7 +74,7 @@ class RecomendationsSection extends StatelessWidget {
                           borderRadius: BorderRadius.only(
                               bottomRight: Radius.circular(5),
                               bottomLeft: Radius.circular(5)),
-                          color: Color.fromARGB(255, 52, 52, 52),
+                          color: AppColor.darkCard,
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

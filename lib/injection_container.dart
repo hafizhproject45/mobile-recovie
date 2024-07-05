@@ -2,19 +2,24 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:recovie/data/datasources/movies/detail_movie/teaser_datasource.dart';
-import 'package:recovie/domain/repositories/movies/detail_movie/teaser_repository.dart';
-import 'package:recovie/domain/usecases/movies/detail_movie/get_teaser_usecase.dart';
-import 'package:recovie/presentation/cubit/detail_movie/get_teaser/get_teaser_cubit.dart';
-import 'data/datasources/movies/detail_movie/image_poster_datasource.dart';
+import 'domain/usecases/movies/detail_movie/get_genre_usecase.dart';
+import 'domain/usecases/movies/detail_movie/get_production_usecase.dart';
+import 'presentation/cubit/detail_movie/get_genre/get_genre_cubit.dart';
+import 'presentation/cubit/detail_movie/get_production/get_production_cubit.dart';
+import 'data/datasources/movies/detail_movie/detail_movie_datasource.dart';
+import 'data/repositories/movies/detail_movie/detail_movie_repository_impl.dart';
+import 'domain/repositories/movies/detail_movie/detail_movie_repository.dart';
+import 'domain/usecases/movies/detail_movie/get_credits_usecase.dart';
+import 'domain/usecases/movies/detail_movie/get_main_detail_usecase.dart';
+import 'domain/usecases/movies/detail_movie/get_teaser_usecase.dart';
+import 'presentation/cubit/detail_movie/get_credits/get_credits_cubit.dart';
+import 'presentation/cubit/detail_movie/get_main_detail/get_main_detail_cubit.dart';
+import 'presentation/cubit/detail_movie/get_teaser/get_teaser_cubit.dart';
 import 'data/datasources/movies/movie_list/movie_list_datasource.dart';
 import 'data/datasources/movies/search_movie/search_movie_datasource.dart';
 import 'data/datasources/reviews/reviews_datasource.dart';
-import 'data/repositories/movies/detail_movie/image_poster_repository_impl.dart';
-import 'data/repositories/movies/detail_movie/teaser_repository_impl.dart';
 import 'data/repositories/movies/movie_list/movie_list_repository_impl.dart';
 import 'data/repositories/movies/search_movie/search_movie_repository_impl.dart';
-import 'domain/repositories/movies/detail_movie/image_poster_repository.dart';
 import 'domain/repositories/movies/movie_list/movie_list_repository.dart';
 import 'domain/repositories/movies/search_movie/search_movie_repository.dart';
 import 'domain/repositories/reviews/reviews_repository.dart';
@@ -96,6 +101,11 @@ Future<void> initLocator() async {
     () => GetRecomendationsCubit(getRecomendationsUseCase: sl()),
   );
 
+  //? Main Detail
+  sl.registerFactory(
+    () => GetMainDetailCubit(getMainDetailUseCase: sl()),
+  );
+
   //? Image Poster
   sl.registerFactory(
     () => GetImagePosterCubit(getImagePosterUseCase: sl()),
@@ -104,6 +114,21 @@ Future<void> initLocator() async {
   //? Teaser
   sl.registerFactory(
     () => GetTeaserCubit(getTeaserUseCase: sl()),
+  );
+
+  //? Genre
+  sl.registerFactory(
+    () => GetGenreCubit(getGenreUseCase: sl()),
+  );
+
+  //? Production
+  sl.registerFactory(
+    () => GetProductionCubit(getProductionUseCase: sl()),
+  );
+
+  //? Credits
+  sl.registerFactory(
+    () => GetCreditsCubit(getCreditsUseCase: sl()),
   );
 
   //? Search Movie
@@ -130,12 +155,27 @@ Future<void> initLocator() async {
   sl.registerLazySingleton(
       () => GetRecomendationsUseCase(movieListRepository: sl()));
 
+  //? Main Detail
+  sl.registerLazySingleton(
+      () => GetMainDetailUseCase(detailMovieRepository: sl()));
+
   //? Image Poster
   sl.registerLazySingleton(
-      () => GetImagePosterUseCase(imagePosterRepository: sl()));
+      () => GetImagePosterUseCase(detailMovieRepository: sl()));
 
   //? Teaser
-  sl.registerLazySingleton(() => GetTeaserUseCase(teaserRepository: sl()));
+  sl.registerLazySingleton(() => GetTeaserUseCase(detailMovieRepository: sl()));
+
+  //? Genre
+  sl.registerLazySingleton(() => GetGenreUseCase(detailMovieRepository: sl()));
+
+  //? Production
+  sl.registerLazySingleton(
+      () => GetProductionUseCase(detailMovieRepository: sl()));
+
+  //? Credits
+  sl.registerLazySingleton(
+      () => GetCreditsUseCase(detailMovieRepository: sl()));
 
   //? Search Movie
   sl.registerLazySingleton(
@@ -153,14 +193,9 @@ Future<void> initLocator() async {
     () => MovieListReposisoryImpl(movieListDataSource: sl()),
   );
 
-  //? Image Poster
-  sl.registerLazySingleton<ImagePosterRepository>(
-    () => ImagePosterRepositoryImpl(imagePosterDataSource: sl()),
-  );
-
-  //? Teaser
-  sl.registerLazySingleton<TeaserRepository>(
-    () => TeaserRepositoryImpl(teaserDataSource: sl()),
+  //? Detail Movie
+  sl.registerLazySingleton<DetailMovieRepository>(
+    () => DetailMovieRepositoryImpl(detailMovieDataSource: sl()),
   );
 
   //? Search List
@@ -182,16 +217,10 @@ Future<void> initLocator() async {
     () => MovieListDataSourceImpl(baseApi: sl()),
   );
 
-  //? Image Poster
-  sl.registerLazySingleton<ImagePosterDataSource>(
-    () => ImagePosterDataSourceImpl(baseApi: sl()),
+  //? Detail Movie
+  sl.registerLazySingleton<DetailMovieDataSource>(
+    () => DetailMovieDataSourceImpl(baseApi: sl()),
   );
-
-  //? Teaser
-  sl.registerLazySingleton<TeaserDataSource>(
-    () => TeaserDataSourceImpl(baseApi: sl()),
-  );
-
   //? Search Movie
   sl.registerLazySingleton<SearchMovieDataSource>(
     () => SearchMovieDataSourceImpl(baseApi: sl()),

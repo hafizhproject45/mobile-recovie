@@ -1,11 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, deprecated_member_use
 import 'package:dio/dio.dart';
-import '../../../../core/utils/constants.dart';
-import '../../../../domain/entities/movies/movie_list/movie_list_entity.dart';
-import '../../../../services/base_api.dart';
 
 import '../../../../core/errors/exceptions.dart';
+import '../../../../core/utils/constants.dart';
 import '../../../../core/utils/env.dart';
+import '../../../../domain/entities/movies/movie_list/movie_list_entity.dart';
+import '../../../../services/base_api.dart';
 import '../../../models/movies/movie_list/movie_list_model.dart';
 
 abstract class SearchMovieDataSource {

@@ -73,7 +73,11 @@ class _AboutPageState extends State<AboutPage> {
                 style: AppTextStyle.subHeadingWhite,
               ),
               const SizedBox(height: 20),
-              const Divider(color: Colors.grey),
+              const Divider(
+                height: 5,
+                thickness: 0.5,
+                color: Colors.grey,
+              ),
               const SizedBox(height: 10),
               const Text(
                 'Contact',
@@ -106,7 +110,11 @@ class _AboutPageState extends State<AboutPage> {
                 placeholderStyle: AppTextStyle.bodySosmed,
               ),
               const SizedBox(height: 20),
-              const Divider(color: Colors.grey),
+              const Divider(
+                height: 5,
+                thickness: 0.5,
+                color: Colors.grey,
+              ),
               const SizedBox(height: 10),
               const Text(
                 'About this application',

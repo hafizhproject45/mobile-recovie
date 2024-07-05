@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../core/utils/utility.dart';
 
 import '../../../core/utils/text_style.dart';
+import '../../../core/utils/utility.dart';
 import '../../../domain/entities/movies/movie_list/movie_list_entity.dart';
 
 class RatingSection extends StatelessWidget {
@@ -14,33 +14,42 @@ class RatingSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Column(
       children: [
-        Column(
-          children: [
-            const Icon(
-              Icons.star,
-              color: Colors.amber,
-              size: 30,
-            ),
-            Text(
-              '${args.voteAverage}/10',
-              style: AppTextStyle.body,
-            ),
-          ],
+        const Text(
+          'Rating for this movie',
+          style: AppTextStyle.bodyWhite,
         ),
-        const SizedBox(width: 30),
-        Column(
+        const SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              Utility.formatNumberWithDots(args.voteCount ?? 0),
-              style: AppTextStyle.subHeadingWhite,
+            Column(
+              children: [
+                const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                  size: 30,
+                ),
+                Text(
+                  '${args.voteAverage}/10',
+                  style: AppTextStyle.body,
+                ),
+              ],
             ),
-            const SizedBox(height: 5),
-            const Text(
-              'Vote Count',
-              style: AppTextStyle.bodyWhite,
+            const SizedBox(width: 30),
+            Column(
+              children: [
+                Text(
+                  Utility.formatNumberWithDots(args.voteCount ?? 0),
+                  style: AppTextStyle.subHeadingWhite,
+                ),
+                const SizedBox(height: 5),
+                const Text(
+                  'Vote Count',
+                  style: AppTextStyle.bodyWhite,
+                ),
+              ],
             ),
           ],
         ),

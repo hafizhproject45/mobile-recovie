@@ -1,9 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:recovie/core/errors/failures.dart';
-import 'package:recovie/domain/entities/movies/detail_movie/teaser_entity.dart';
-import 'package:recovie/domain/usecases/movies/detail_movie/get_teaser_usecase.dart';
+import '../../../../core/errors/failures.dart';
+import '../../../../domain/entities/movies/detail_movie/teaser_entity.dart';
+import '../../../../domain/usecases/movies/detail_movie/get_teaser_usecase.dart';
 
 part 'get_teaser_state.dart';
 

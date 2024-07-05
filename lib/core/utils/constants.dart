@@ -3,8 +3,6 @@
 const String BASE_HTTP = 'https://';
 const String BASE_URL = 'https://api.themoviedb.org/3';
 const String IMAGE_URL = 'https://image.tmdb.org/t/p/w500';
-const String IMAGE_PLACEHOLDER =
-    'https://via.placeholder.com/80x100.png?text=No+Image';
 const String BASE_DOMAIN = 'api.themoviedb.org';
 
 //! API ENDPOINT

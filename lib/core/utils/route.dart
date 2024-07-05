@@ -1,7 +1,7 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:get/get_navigation/src/routes/transitions_type.dart'
     as get_trans;
-import 'package:recovie/presentation/pages/detail/detail_more_teaser.dart';
+import 'package:recovie/presentation/pages/detail/more_credits.dart';
 import '../../presentation/pages/detail/main_detail_page.dart';
 import '../../presentation/pages/search/main_search_page.dart';
 import '../../presentation/pages/upcoming/main_upcoming_page.dart';
@@ -26,9 +26,9 @@ class AppRoute {
           page: () => const DetailPage(),
           transition: get_trans.Transition.leftToRightWithFade,
         ),
-        GetPage<MoreTeaser>(
-          name: '/more-teaser',
-          page: () => const MoreTeaser(),
+        GetPage<MoreCredits>(
+          name: '/more-credits',
+          page: () => const MoreCredits(),
           transition: get_trans.Transition.leftToRightWithFade,
         ),
         GetPage<SearchPage>(

@@ -1,12 +1,12 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, deprecated_member_use
 import 'package:dio/dio.dart';
-import '../../../data/models/reviews/reviews_model.dart';
-import '../../../domain/entities/reviews/reviews_entity.dart';
-import '../../../services/base_api.dart';
 
 import '../../../core/errors/exceptions.dart';
 import '../../../core/utils/constants.dart';
 import '../../../core/utils/env.dart';
+import '../../../data/models/reviews/reviews_model.dart';
+import '../../../domain/entities/reviews/reviews_entity.dart';
+import '../../../services/base_api.dart';
 
 abstract class ReviewsDataSource {
   Future<List<ReviewsEntity>> getReviews(int movieId);

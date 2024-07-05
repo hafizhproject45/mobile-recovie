@@ -106,7 +106,11 @@ class SearchField extends StatelessWidget {
                               ),
                             ],
                           ),
-                          const Divider()
+                          const Divider(
+                            height: 5,
+                            thickness: 0.5,
+                            color: Colors.grey,
+                          ),
                         ],
                       );
                     },
@@ -204,7 +208,11 @@ class SearchField extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const Divider()
+                    const Divider(
+                      height: 5,
+                      thickness: 0.5,
+                      color: Colors.grey,
+                    ),
                   ],
                 );
               },

@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:recovie/core/utils/colors.dart';
-import 'package:recovie/domain/entities/movies/detail_movie/teaser_entity.dart';
-import 'package:recovie/presentation/cubit/detail_movie/get_teaser/get_teaser_cubit.dart';
-import 'package:recovie/presentation/widgets/global/shimmer/my_shimmer_custom.dart';
-import 'package:recovie/presentation/widgets/global/youtube_iframe.dart';
+import '../../../core/utils/colors.dart';
+import '../../../domain/entities/movies/detail_movie/teaser_entity.dart';
+import '../../cubit/detail_movie/get_teaser/get_teaser_cubit.dart';
+import '../global/shimmer/my_shimmer_custom.dart';
+import '../global/youtube_iframe.dart';
 
-class TrailerSection extends StatefulWidget {
+class TeaserSection extends StatefulWidget {
   final String title;
 
-  const TrailerSection({
+  const TeaserSection({
     required this.title,
     super.key,
   });
 
   @override
-  State<TrailerSection> createState() => _TrailerSectionState();
+  State<TeaserSection> createState() => _TeaserSectionState();
 }
 
-class _TrailerSectionState extends State<TrailerSection> {
+class _TeaserSectionState extends State<TeaserSection> {
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;

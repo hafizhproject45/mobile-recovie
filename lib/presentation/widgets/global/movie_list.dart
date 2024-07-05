@@ -40,7 +40,7 @@ class MovieList extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5),
                   child: Image.network(
                     image.isEmpty || image == ''
-                        ? IMAGE_PLACEHOLDER
+                        ? Utility.imagePlaceHolder(80, 100)
                         : '$IMAGE_URL$image',
                     height: 100,
                     width: 80,
@@ -113,7 +113,11 @@ class MovieList extends StatelessWidget {
               ],
             ),
           ),
-          const Divider()
+          const Divider(
+            height: 5,
+            thickness: 0.5,
+            color: Colors.grey,
+          )
         ],
       ),
     );

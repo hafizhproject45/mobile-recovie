@@ -3,16 +3,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_navigation/get_navigation.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+
 import '../../../core/utils/text_style.dart';
 import '../../../core/utils/utility.dart';
-import '../../cubit/movie_list/get_popular/get_popular_cubit.dart';
-import '../../cubit/movie_list/get_top_rated/get_top_rated_cubit.dart';
-import '../../widgets/global/my_drawer.dart';
-import '../../widgets/global/shimmer/my_shimmer_custom.dart';
-
 import '../../../domain/entities/movies/movie_list/movie_list_entity.dart';
 import '../../../injection_container.dart';
+import '../../cubit/movie_list/get_popular/get_popular_cubit.dart';
+import '../../cubit/movie_list/get_top_rated/get_top_rated_cubit.dart';
 import '../../widgets/global/my_appbar.dart';
+import '../../widgets/global/my_drawer.dart';
+import '../../widgets/global/shimmer/my_shimmer_custom.dart';
 import '../../widgets/home/my_carousel_slider.dart';
 import '../../widgets/home/top_rated_section.dart';
 
@@ -65,6 +65,7 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                //? POPULAR TEXT ()
                 const Center(
                   child: Text(
                     'Popular Movies',
@@ -72,6 +73,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 30),
+                //? TOP RATED SECTION
                 BlocBuilder<GetPopularCubit, GetPopularState>(
                   builder: (context, state) {
                     if (state is GetPopularLoaded) {
@@ -80,6 +82,7 @@ class _HomePageState extends State<HomePage> {
 
                       return Column(
                         children: [
+                          //? TOP RATED SECTION (CAROUSEL)
                           MyCarouselSlider(
                             onPageChanged: (index, reason) {
                               setState(() {
@@ -120,6 +123,7 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
                 const SizedBox(height: 40),
+                //? TOP RATED TEXT
                 const Padding(
                   padding: EdgeInsets.only(left: 10),
                   child: Text(
@@ -128,6 +132,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 const SizedBox(height: 10),
+                //? TOP RATED SECTION
                 const TopRatedSection(),
               ],
             ),

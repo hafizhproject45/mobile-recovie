@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../cubit/movie_list/get_upcoming/get_upcoming_cubit.dart';
 
 import '../../../core/utils/utility.dart';
 import '../../../domain/entities/movies/movie_list/movie_list_entity.dart';
 import '../../../injection_container.dart';
+import '../../cubit/movie_list/get_upcoming/get_upcoming_cubit.dart';
 import '../../widgets/global/movie_list.dart';
 import '../../widgets/global/my_appbar.dart';
 import '../../widgets/global/my_drawer.dart';
